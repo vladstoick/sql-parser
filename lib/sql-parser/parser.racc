@@ -18,6 +18,12 @@ rule
     : # no action
     | ORDER BY sort_specification_list { result = SQLParser::Statement::OrderBy.new(val[2]) }
 
+  limit_clause
+    : # no action
+    | LIMIT unsigned_integer { result = SQLParser::Statement::LimitClause.new(val[1], nil) }
+    | LIMIT unsigned_integer OFFSET unsigned_integer { result = SQLParser::Statement::LimitClause.new(val[1], val[3]) }
+    | LIMIT unsigned_integer comma unsigned_integer { result = SQLParser::Statement::LimitClause.new(val[3], val[1]) }
+
   sort_specification_list
     : sort_specification_list comma sort_specification { result = Array(val[0]) + Array(val[2]) }
     | sort_specification
@@ -80,7 +86,7 @@ rule
     | value_expression
 
   table_expression
-    : from_clause where_clause group_by_clause having_clause { result = SQLParser::Statement::TableExpression.new(val[0], val[1], val[2], val[3]) }
+    : from_clause where_clause group_by_clause having_clause limit_clause { result = SQLParser::Statement::TableExpression.new(val[0], val[1], val[2], val[3], val[4]) }
 
   from_clause
     : FROM table_reference { result = SQLParser::Statement::FromClause.new(val[1]) }

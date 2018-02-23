@@ -366,10 +366,19 @@ class TestParser < Test::Unit::TestCase
   def test_filter
     assert_understands 'SELECT DISTINCT 1'
     assert_understands 'SELECT DISTINCT 1 FROM `t1`'
-    # assert_understands 'SELECT DISTINCTROW 10'
+    assert_understands 'SELECT DISTINCTROW 10'
     assert_understands 'SELECT DISTINCTROW 10 FROM `t1`'
     assert_understands 'SELECT ALL 10'
     assert_understands 'SELECT ALL 10 FROM `t1`'
+  end
+
+  def test_limit
+    assert_understands 'SELECT `c1` FROM `t1` LIMIT 2'
+    assert_understands 'SELECT `c1` FROM `t1` LIMIT 2 OFFSET 2'
+    assert_sql(
+      'SELECT `c1` FROM `t1` LIMIT 2 OFFSET 3',
+      'SELECT `c1` FROM `t1` LIMIT 3, 2'
+    )
   end
 
   private
