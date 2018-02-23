@@ -42,22 +42,28 @@ rule
   query_expression
     : query_specification
 
-  insert_specification 
+  insert_specification
     : INSERT INTO table_reference value_list { result = SQLParser::Statement::Insert.new(val[2], nil, val[3]) }
     | INSERT INTO table_reference column_list value_list { result = SQLParser::Statement::Insert.new(val[2], val[3], val[4]) }
 
   column_list
     : left_paren in_column_list right_paren { result = SQLParser::Statement::InColumnList.new(val[1]) }
- 
+
   in_column_list
     : value_expression comma in_column_list { result = Array(val[0]) + Array(val[2]) }
 	  | value_expression
-  
+
   value_list
     : VALUES left_paren in_value_list right_paren { result = SQLParser::Statement::InValueList.new(val[2]) }
 
   query_specification
-    : SELECT select_list table_expression { result = SQLParser::Statement::Select.new(val[1], val[2]) }
+    : SELECT DISTINCTROW select_list table_expression { result = SQLParser::Statement::Select.new(val[2], val[3], "DISTINCTROW") }
+    | SELECT DISTINCTROW select_list { result = SQLParser::Statement::Select.new(val[2], nil, "DISTINCTROW") }
+    | SELECT DISTINCT select_list table_expression { result = SQLParser::Statement::Select.new(val[2], val[3], "DISTINCT") }
+    | SELECT DISTINCT select_list { result = SQLParser::Statement::Select.new(val[2], nil, "DISTINCT") }
+    | SELECT ALL select_list table_expression { result = SQLParser::Statement::Select.new(val[2], val[3], "ALL") }
+    | SELECT ALL select_list { result = SQLParser::Statement::Select.new(val[2], nil, "ALL") }
+    | SELECT select_list table_expression { result = SQLParser::Statement::Select.new(val[1], val[2]) }
     | SELECT select_list { result = SQLParser::Statement::Select.new(val[1]) }
 
   select_list

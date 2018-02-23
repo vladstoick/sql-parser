@@ -1,7 +1,7 @@
 module SQLParser
-  
+
   class SQLVisitor
-    
+
     def initialize
       @negated = false
     end
@@ -9,14 +9,14 @@ module SQLParser
     def visit(node)
       node.accept(self)
     end
-    
+
     def visit_Insert(o)
       name = visit(o.table_reference)
       columns = ' ' + visit(o.column_list) if o.column_list
       values = ' VALUES ' + visit(o.in_value_list)
       "INSERT INTO #{name}#{columns}#{values}"
     end
-    
+
     def visit_DirectSelect(o)
       [
         o.query_expression,
@@ -36,7 +36,11 @@ module SQLParser
       # FIXME: This feels like a hack
       initialize
 
-      "SELECT #{visit_all([o.list, o.table_expression].compact).join(' ')}"
+      if o.filter.nil?
+        "SELECT #{visit_all([o.list, o.table_expression].compact).join(' ')}"
+      else
+        "SELECT #{o.filter} #{visit_all([o.list, o.table_expression].compact).join(' ')}"
+      end
     end
 
     def visit_SelectList(o)
@@ -139,7 +143,7 @@ module SQLParser
     def visit_InColumnList(o)
       "(#{arrayize(o.columns)})"
     end
-    
+
     def visit_InValueList(o)
       "(#{arrayize(o.values)})"
     end
@@ -356,7 +360,7 @@ module SQLParser
     def qualified_join(join_type, o)
       "#{visit(o.left)} #{join_type} JOIN #{visit(o.right)} #{visit(o.search_condition)}"
     end
-    
+
   end
-  
+
 end

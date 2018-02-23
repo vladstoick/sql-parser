@@ -37,6 +37,9 @@ rule
 
 # keywords
             SELECT        { [:SELECT, text] }
+            DISTINCTROW   { [:DISTINCTROW, text] }
+            DISTINCT      { [:DISTINCT, text] }
+            ALL           { [:ALL, text] }
             DATE          { [:DATE, text] }
             ASC           { [:ASC, text] }
             AS            { [:AS, text] }
