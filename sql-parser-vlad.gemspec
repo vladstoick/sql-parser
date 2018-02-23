@@ -3,7 +3,7 @@ require 'sql-parser/version'
 
 Gem::Specification.new do |s|
 
-  s.name        = 'sql-parser'
+  s.name        = 'sql-parser-vlad'
   s.version     = SQLParser::VERSION
   s.authors     = ['Dray Lacy', 'Louis Mullie']
   s.email       = ['dray@izea.com', 'louis.mullie@gmail.com']
