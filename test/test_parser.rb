@@ -381,6 +381,10 @@ class TestParser < Test::Unit::TestCase
     )
   end
 
+  def test_order_by_table
+    assert_understands 'SELECT `c1` FROM `t1` ORDER BY `c1`.`id` ASC'
+  end
+
   private
 
   def assert_sql(expected, given)
