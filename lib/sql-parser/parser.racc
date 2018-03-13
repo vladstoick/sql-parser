@@ -146,7 +146,8 @@ rule
     | grouping_column_reference
 
   grouping_column_reference
-    : column_reference
+    : exact_numeric_literal
+    | column_reference
 
   having_clause
     : # no action

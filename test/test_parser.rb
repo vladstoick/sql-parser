@@ -119,6 +119,7 @@ class TestParser < Test::Unit::TestCase
     assert_understands 'SELECT * FROM `users` GROUP BY `users`.`name`'
     assert_understands 'SELECT * FROM `users` GROUP BY `name`, `id`'
     assert_understands 'SELECT * FROM `users` GROUP BY `users`.`name`, `users`.`id`'
+    assert_understands 'SELECT `c1` FROM `t1` GROUP BY 1'
   end
 
   def test_or
