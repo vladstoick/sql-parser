@@ -95,6 +95,7 @@ rule
     : table_name AS column_name { result = SQLParser::Statement::As.new(val[0], val[2]) }
     | table_name column_name { result = SQLParser::Statement::As.new(val[0], val[1]) }
     | table_name
+    | subquery
     | joined_table
 
   table_subquery

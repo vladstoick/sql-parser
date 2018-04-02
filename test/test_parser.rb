@@ -386,6 +386,10 @@ class TestParser < Test::Unit::TestCase
     assert_understands 'SELECT `c1` FROM `t1` ORDER BY `c1`.`id` ASC'
   end
 
+    def test_subquery_in_from
+    assert_understands 'SELECT * FROM (SELECT * FROM `t1`)'
+  end
+
   private
 
   def assert_sql(expected, given)
