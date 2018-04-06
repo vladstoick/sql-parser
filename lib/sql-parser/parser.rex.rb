@@ -45,7 +45,7 @@ class SQLParser::Parser < Racc::Parser
 
   def next_token
     return if @ss.eos?
-    
+
     # skips empty actions
     until token = _next_token or @ss.eos?; end
     token
@@ -242,6 +242,9 @@ class SQLParser::Parser < Racc::Parser
 
       when (text = @ss.scan(/\+/i))
          action { [:plus_sign, text] }
+
+      when (text = @ss.scan(/\%/i))
+         action { [:modulo, text] }
 
       when (text = @ss.scan(/\-/i))
          action { [:minus_sign, text] }

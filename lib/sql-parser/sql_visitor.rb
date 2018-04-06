@@ -265,6 +265,10 @@ module SQLParser
       arithmetic('/', o)
     end
 
+    def visit_Modulo(o)
+      arithmetic('%', o)
+    end
+
     def visit_Add(o)
       arithmetic('+', o)
     end

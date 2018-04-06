@@ -454,6 +454,9 @@ module SQLParser
     class Add < Arithmetic
     end
 
+    class Modulo < Arithmetic
+    end
+
     class Subtract < Arithmetic
     end
 
