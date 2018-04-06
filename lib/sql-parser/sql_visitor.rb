@@ -209,6 +209,10 @@ module SQLParser
       aggregate('COUNT', o)
     end
 
+    def visit_Length(o)
+      aggregate('LENGTH', o)
+    end
+
     def visit_CrossJoin(o)
       "#{visit(o.left)} CROSS JOIN #{visit(o.right)}"
     end

@@ -288,6 +288,7 @@ rule
 
   general_set_function
     : COUNT left_paren value_expression right_paren { result = SQLParser::Statement::Count.new(val[2]) }
+    | LENGTH left_paren value_expression right_paren { result = SQLParser::Statement::Length.new(val[2]) }
     | AVG left_paren value_expression right_paren { result = SQLParser::Statement::Average.new(val[2]) }
     | MAX left_paren value_expression right_paren { result = SQLParser::Statement::Maximum.new(val[2]) }
     | MIN left_paren value_expression right_paren { result = SQLParser::Statement::Minimum.new(val[2]) }

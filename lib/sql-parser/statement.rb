@@ -331,6 +331,10 @@ module SQLParser
 
     end
 
+
+    class Length < Aggregate
+    end
+
     class Sum < Aggregate
     end
 

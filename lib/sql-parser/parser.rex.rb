@@ -141,6 +141,9 @@ class SQLParser::Parser < Racc::Parser
       when (text = @ss.scan(/COUNT/i))
          action { [:COUNT, text] }
 
+      when (text = @ss.scan(/LENGTH/i))
+        action { [:LENGTH, text] }
+
       when (text = @ss.scan(/AVG/i))
          action { [:AVG, text] }
 
