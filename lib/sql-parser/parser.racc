@@ -150,6 +150,7 @@ rule
   grouping_column_reference
     : exact_numeric_literal
     | column_reference
+    | numeric_value_expression
 
   having_clause
     : # no action
