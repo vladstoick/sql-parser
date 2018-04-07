@@ -402,6 +402,10 @@ class TestParser < Test::Unit::TestCase
     assert_understands "SELECT LENGTH(`a`) FROM `table1`"
   end
 
+  def test_order_count
+    assert_understands "SELECT * FROM `a` ORDER BY COUNT(`a`.`id`) ASC"
+  end
+
   private
 
   def assert_sql(expected, given)

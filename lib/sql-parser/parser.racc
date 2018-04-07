@@ -33,6 +33,7 @@ rule
 
   sort_key
     : column_reference
+    | set_function_specification
     | unsigned_integer { result = SQLParser::Statement::Integer.new(val[0]) }
 
   ordering_specification
