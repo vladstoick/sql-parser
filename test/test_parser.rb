@@ -15,14 +15,13 @@ class TestParser < Test::Unit::TestCase
     assert_understands 'INSERT INTO `users` VALUES (1, 2)'
   end
 
-  def test_insert_into_clause
+  def test_insert_into_clause_2
     assert_understands 'INSERT INTO `users` VALUES (`a`, `b`)'
   end
 
   def test_insert_with_quotes
     q =  'INSERT INTO "users" ("active", "created_on", "email", "last_login", "password", "salt", "username") VALUES ("a", "b", "c", "c", "e")'
     q.gsub!(/([^\\])"/) { $1 + '`' }
-    puts q.inspect
     assert_understands q
 
   end
@@ -394,7 +393,7 @@ class TestParser < Test::Unit::TestCase
     assert_understands 'SELECT * FROM `table1` WHERE (`id` % 2) = 0'
   end
 
-  def test_like
+  def test_like_double
     assert_understands "SELECT * FROM `table1` WHERE (`ID` LIKE '%a' AND `ID` LIKE '%b')"
   end
 
@@ -406,8 +405,12 @@ class TestParser < Test::Unit::TestCase
     assert_understands "SELECT * FROM `a` ORDER BY COUNT(`a`.`id`) ASC"
   end
 
-  def test_order_count
+  def test_group_funct
     assert_understands "SELECT * FROM `a` GROUP BY (`a` * `b`)"
+  end
+
+  def test_order_funct
+    assert_understands "SELECT * FROM `a` ORDER BY (`a` * `b`) ASC"
   end
 
   private

@@ -35,6 +35,7 @@ rule
     : column_reference
     | set_function_specification
     | unsigned_integer { result = SQLParser::Statement::Integer.new(val[0]) }
+    | numeric_value_expression
 
   ordering_specification
     : { result = SQLParser::Statement::Ascending } # default
