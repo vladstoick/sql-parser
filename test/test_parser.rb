@@ -413,6 +413,14 @@ class TestParser < Test::Unit::TestCase
     assert_understands "SELECT * FROM `a` ORDER BY (`a` * `b`) ASC"
   end
 
+  def test_semicolon
+    assert_sql "SELECT * FROM `a`", "SELECT * FROM `a`;"
+    assert_sql "SELECT ALL * FROM `a`", "SELECT ALL * FROM `a`;"
+    assert_sql "SELECT DISTINCT * FROM `a`", "SELECT DISTINCT * FROM `a`;"
+    assert_sql "SELECT DISTINCTROW * FROM `a`", "SELECT DISTINCTROW * FROM `a`;"
+    assert_sql "SELECT 1", "SELECT 1;"
+  end
+
   private
 
   def assert_sql(expected, given)

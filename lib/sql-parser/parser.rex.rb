@@ -258,6 +258,9 @@ class SQLParser::Parser < Racc::Parser
       when (text = @ss.scan(/,/i))
          action { [:comma, text] }
 
+      when (text = @ss.scan(/;/i))
+         action { [:semicolon, text] }
+
       when (text = @ss.scan(/`\w+`/i))
          action { [:identifier, text[1..-2]] }
 
