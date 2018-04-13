@@ -11,7 +11,7 @@ rule
     | insert_specification
 
   direct_select_statement_multiple_rows
-    : query_expression order_by_clause { result = SQLParser::Statement::DirectSelect.new(val[0], val[1]) }
+    : query_expression order_by_clause semicolon_not_req { result = SQLParser::Statement::DirectSelect.new(val[0], val[1]) }
 
 # module contents
   order_by_clause

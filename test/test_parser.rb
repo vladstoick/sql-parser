@@ -419,6 +419,7 @@ class TestParser < Test::Unit::TestCase
     assert_sql "SELECT DISTINCT * FROM `a`", "SELECT DISTINCT * FROM `a`;"
     assert_sql "SELECT DISTINCTROW * FROM `a`", "SELECT DISTINCTROW * FROM `a`;"
     assert_sql "SELECT 1", "SELECT 1;"
+    assert_sql "SELECT * FROM `t1` ORDER BY `id` ASC", "SELECT * FROM `t1` ORDER BY `id` ASC;"
   end
 
   private
